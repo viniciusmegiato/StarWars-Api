@@ -15,3 +15,12 @@ class SWAPIService:
         response = requests.get(url)
         response.raise_for_status()
         return response.json()
+    
+    @staticmethod
+    def fetch_all_data(endpoint, id_page):
+        url = (f"{BASE_URL}{endpoint}/")
+        if int(id_page) > 1:
+            url += f"?page={id_page}"
+        response = requests.get(url)
+        response.raise_for_status()
+        return response.json()

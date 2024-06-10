@@ -43,3 +43,15 @@ def get_character(request, id):
         return Response(serializer.data, status=status.HTTP_200_OK)
     else:
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+def get_all_character(request):
+    try:
+        id_page = request.GET.get('page')
+        if id_page is None:
+            id_page = 1
+        data = SWAPIService.fetch_all_data('people', id_page)
+        return Response(data, status=status.HTTP_200_OK)
+    except Exception:
+        return Response({'error': 'Character not found'}, status=status.HTTP_404_NOT_FOUND)
